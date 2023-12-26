@@ -20,25 +20,25 @@ buttons.forEach((item) => {
         const number = display.innerText.replace("ln", "");
         display.innerText = Math.log(Number(number));
       } else if (display.innerText.includes("tan")) {
-        // Perform tangent inverse operation
+        // Perform tangent operation in degrees
         const number = display.innerText.replace("tan", "");
-        display.innerText = Math.atan(Number(number));
+        display.innerText = Math.tan((Number(number) * Math.PI) / 180);
       } else if (display.innerText.includes("sin")) {
-        // Perform sine operation
+        // Perform sine operation in degrees
         const number = display.innerText.replace("sin", "");
-        display.innerText = Math.sin(Number(number));
+        display.innerText = Math.sin((Number(number) * Math.PI) / 180);
       } else if (display.innerText.includes("asin")) {
-        // Perform inverse sine operation
+        // Perform inverse sine operation, result in degrees
         const number = display.innerText.replace("asin", "");
-        display.innerText = Math.asin(Number(number));
+        display.innerText = Math.asin(Number(number)) * (180 / Math.PI);
       } else if (display.innerText.includes("cos")) {
-        // Perform cosine operation
+        // Perform cosine operation in degrees
         const number = display.innerText.replace("cos", "");
-        display.innerText = Math.cos(Number(number));
+        display.innerText = Math.cos((Number(number) * Math.PI) / 180);
       } else if (display.innerText.includes("acos")) {
-        // Perform inverse cosine operation
+        // Perform inverse cosine operation, result in degrees
         const number = display.innerText.replace("acos", "");
-        display.innerText = Math.acos(Number(number));
+        display.innerText = Math.acos(Number(number)) * (180 / Math.PI);
       } else if (display.innerText.includes("sqrt")) {
         // Perform square root operation
         const number = display.innerText.replace("sqrt", "");
