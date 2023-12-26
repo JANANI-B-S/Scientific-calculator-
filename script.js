@@ -12,10 +12,12 @@ buttons.forEach((item) => {
       // Check for logarithmic operations
       if (display.innerText.includes("log")) {
         const [base, number] = display.innerText.split("log");
-        display.innerText = Math.log10(Number(number)) / Math.log10(Number(base));
+        const result = Math.log10(Number(number)) / Math.log10(Number(base));
+        display.innerText = isNaN(result) ? "Error" : result;
       } else if (display.innerText.includes("ln")) {
         const number = display.innerText.replace("ln", "");
-        display.innerText = Math.log(Number(number));
+        const result = Math.log(Number(number));
+        display.innerText = isNaN(result) ? "Error" : result;
       } else if (display.innerText.includes("tan")) {
         const number = display.innerText.replace("tan", "");
         display.innerText = Math.tan((Number(number) * Math.PI) / 180);
@@ -24,13 +26,15 @@ buttons.forEach((item) => {
         display.innerText = Math.sin((Number(number) * Math.PI) / 180);
       } else if (display.innerText.includes("asin")) {
         const number = display.innerText.replace("asin", "");
-        display.innerText = Math.asin(Number(number)) * (180 / Math.PI);
+        const result = Math.asin(Number(number)) * (180 / Math.PI);
+        display.innerText = isNaN(result) ? "Error" : result;
       } else if (display.innerText.includes("cos")) {
         const number = display.innerText.replace("cos", "");
         display.innerText = Math.cos((Number(number) * Math.PI) / 180);
       } else if (display.innerText.includes("acos")) {
         const number = display.innerText.replace("acos", "");
-        display.innerText = Math.acos(Number(number)) * (180 / Math.PI);
+        const result = Math.acos(Number(number)) * (180 / Math.PI);
+        display.innerText = isNaN(result) ? "Error" : result;
       } else if (display.innerText.includes("sqrt")) {
         const number = display.innerText.replace("sqrt", "");
         display.innerText = Math.sqrt(Number(number));
