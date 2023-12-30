@@ -1,69 +1,136 @@
-const display = document.querySelector("#display");
-const buttons = document.querySelectorAll("button");
+document.addEventListener("DOMContentLoaded", function () {
+      const display = document.getElementById("display");
+      const buttons = document.querySelectorAll("button");
 
-buttons.forEach((item) => {
-  item.onclick = () => {
-    if (item.id == "clear") {
-      display.innerText = "";
-    } else if (item.id == "backspace") {
-      let string = display.innerText.toString();
-      display.innerText = string.substr(0, string.length - 1);
-    } else if (display.innerText != "" && item.id == "equal") {
-      // Check for logarithmic operations
-      if (display.innerText.includes("log")) {
-        const [base, number] = display.innerText.split("log");
-        const result = Math.log10(Number(number)) / Math.log10(Number(base));
-        display.innerText = isNaN(result) ? "Error" : result;
-      } else if (display.innerText.includes("ln")) {
-        const number = display.innerText.replace("ln", "");
-        const result = Math.log(Number(number));
-        display.innerText = isNaN(result) ? "Error" : result;
-      } else if (display.innerText.includes("tan")) {
-        const number = display.innerText.replace("tan", "");
-        display.innerText = Math.tan((Number(number) * Math.PI) / 180);
-      } else if (display.innerText.includes("sin")) {
-        const number = display.innerText.replace("sin", "");
-        display.innerText = Math.sin((Number(number) * Math.PI) / 180);
-      } else if (display.innerText.includes("asin")) {
-        const number = display.innerText.replace("asin", "");
-        const result = Math.asin(Number(number)) * (180 / Math.PI);
-        display.innerText = isNaN(result) ? "Error" : result;
-      } else if (display.innerText.includes("cos")) {
-        const number = display.innerText.replace("cos", "");
-        display.innerText = Math.cos((Number(number) * Math.PI) / 180);
-      } else if (display.innerText.includes("acos")) {
-        const number = display.innerText.replace("acos", "");
-        const result = Math.acos(Number(number)) * (180 / Math.PI);
-        display.innerText = isNaN(result) ? "Error" : result;
-      } else if (display.innerText.includes("sqrt")) {
-        const number = display.innerText.replace("sqrt", "");
-        display.innerText = Math.sqrt(Number(number));
-      } else if (display.innerText.includes("square")) {
-        const number = display.innerText.replace("square", "");
-        display.innerText = Math.pow(Number(number), 2);
-      } else if (display.innerText.includes("rad")) {
-        const number = display.innerText.replace("rad", "");
-        display.innerText = (Number(number) * Math.PI) / 180;
-      } else if (display.innerText.includes("pi")) {
-        display.innerText = display.innerText.replace("pi", Math.PI);
-      } else {
-        display.innerText = eval(display.innerText);
+      buttons.forEach((button) => {
+        button.addEventListener("click", function () {
+          handleButtonClick(button.id);
+        });
+      });
+
+      function handleButtonClick(buttonId) {
+        switch (buttonId) {
+          case "clear":
+            clearDisplay();
+            break;
+          case "equal":
+            evaluateExpression();
+            break;
+          case "backspace":
+            backspace();
+            break;
+          case "sqrt":
+            applySquareRoot();
+            break;
+          case "square":
+            applySquare();
+            break;
+          case "pi":
+            appendToDisplay(Math.PI);
+            break;
+          case "sin":
+            applyTrigFunction(Math.sin);
+            break;
+          case "cos":
+            applyTrigFunction(Math.cos);
+            break;
+          case "tan":
+            applyTrigFunction(Math.tan);
+            break;
+          case "asin":
+            applyInverseTrigFunction(Math.asin);
+            break;
+          case "acos":
+            applyInverseTrigFunction(Math.acos);
+            break;
+          case "atan":
+            applyInverseTrigFunction(Math.atan);
+            break;
+          case "log":
+            applyLogarithm();
+            break;
+          case "ln":
+            applyNaturalLogarithm();
+            break;
+          default:
+            appendToDisplay(buttonId);
+            break;
+        }
       }
-    } else if (display.innerText == "" && item.id == "equal") {
-      display.innerText = "Empty!";
-      setTimeout(() => (display.innerText = ""), 2000);
-    } else {
-      display.innerText += item.id;
-    }
-  };
-});
 
-const themeToggleBtn = document.querySelector(".theme-toggler");
-const calculator = document.querySelector(".dark");
-let isDark = true;
+      function clearDisplay() {
+        display.innerText = "";
+      }
 
-themeToggleBtn.onclick = () => {
-  calculator.classList.toggle("dark");
-  themeToggleBtn.classList.toggle("active");
-  isDark = !isDark;
-};
+      function evaluateExpression() {
+        try {
+          const result = eval(display.innerText);
+          display.innerText = result;
+        } catch (error) {
+          display.innerText = "Error";
+        }
+      }
+
+      function backspace() {
+        let currentExpression = display.innerText;
+        display.innerText = currentExpression.slice(0, -1);
+      }
+
+      function appendToDisplay(value) {
+        display.innerText += value;
+      }
+
+      function applySquareRoot() {
+        const currentValue = parseFloat(display.innerText);
+        if (!isNaN(currentValue) && currentValue >= 0) {
+          display.innerText = Math.sqrt(currentValue);
+        } else {
+          display.innerText = "Error";
+        }
+      }
+
+      function applySquare() {
+        const currentValue = parseFloat(display.innerText);
+        if (!isNaN(currentValue)) {
+          display.innerText = Math.pow(currentValue, 2);
+        } else {
+          display.innerText = "Error";
+        }
+      }
+
+      function applyTrigFunction(trigFunction) {
+        const currentValue = parseFloat(display.innerText);
+        if (!isNaN(currentValue)) {
+          display.innerText = trigFunction((currentValue * Math.PI) / 180);
+        } else {
+          display.innerText = "Error";
+        }
+      }
+
+      function applyInverseTrigFunction(inverseTrigFunction) {
+        const currentValue = parseFloat(display.innerText);
+        if (!isNaN(currentValue) && currentValue >= -1 && currentValue <= 1) {
+          display.innerText = (inverseTrigFunction(currentValue) * 180) / Math.PI;
+        } else {
+          display.innerText = "Error";
+        }
+      }
+
+      function applyLogarithm() {
+        const currentValue = parseFloat(display.innerText);
+        if (!isNaN(currentValue) && currentValue > 0) {
+          display.innerText = Math.log10(currentValue);
+        } else {
+          display.innerText = "Error";
+        }
+      }
+
+      function applyNaturalLogarithm() {
+        const currentValue = parseFloat(display.innerText);
+        if (!isNaN(currentValue) && currentValue > 0) {
+          display.innerText = Math.log(currentValue);
+        } else {
+          display.innerText = "Error";
+        }
+      }
+    });
