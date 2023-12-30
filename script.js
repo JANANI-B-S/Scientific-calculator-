@@ -31,6 +31,24 @@ document.addEventListener("DOMContentLoaded", function () {
       case "pi":
         appendToDisplay(Math.PI);
         break;
+      case "sin":
+        applyTrigFunction(Math.sin);
+        break;
+      case "cos":
+        applyTrigFunction(Math.cos);
+        break;
+      case "tan":
+        applyTrigFunction(Math.tan);
+        break;
+      case "asin":
+        applyInverseTrigFunction(Math.asin);
+        break;
+      case "acos":
+        applyInverseTrigFunction(Math.acos);
+        break;
+      case "atan":
+        applyInverseTrigFunction(Math.atan);
+        break;
       default:
         appendToDisplay(buttonId);
         break;
@@ -81,6 +99,24 @@ document.addEventListener("DOMContentLoaded", function () {
     const currentValue = parseFloat(display.innerText);
     if (!isNaN(currentValue)) {
       display.innerText = (currentValue * Math.PI) / 180;
+    } else {
+      display.innerText = "Error";
+    }
+  }
+
+  function applyTrigFunction(trigFunction) {
+    const currentValue = parseFloat(display.innerText);
+    if (!isNaN(currentValue)) {
+      display.innerText = trigFunction((currentValue * Math.PI) / 180);
+    } else {
+      display.innerText = "Error";
+    }
+  }
+
+  function applyInverseTrigFunction(inverseTrigFunction) {
+    const currentValue = parseFloat(display.innerText);
+    if (!isNaN(currentValue) && currentValue >= -1 && currentValue <= 1) {
+      display.innerText = (inverseTrigFunction(currentValue) * 180) / Math.PI;
     } else {
       display.innerText = "Error";
     }
