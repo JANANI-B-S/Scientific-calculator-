@@ -109,8 +109,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
       function applyInverseTrigFunction(inverseTrigFunction) {
         const currentValue = parseFloat(display.innerText);
+        const c=Math.toRadians(currentValue);
         if (!isNaN(currentValue)) {
-          display.innerText = inverseTrigFunction((currentValue) * 180) / Math.PI);
+          display.innerText = inverseTrigFunction((c) * 180) / Math.PI);
         } else {
           display.innerText = "Error";
         }
