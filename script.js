@@ -1,4 +1,4 @@
-
+document.addEventListener("DOMContentLoaded", function () {
   const display = document.querySelector("#display");
   const buttons = document.querySelectorAll("button");
 
@@ -105,7 +105,7 @@
 
   function applyInverseTrigFunction(inverseTrigFunction) {
     const currentValue = parseFloat(display.innerText);
-    if (!isNaN(currentValue) && currentValue >= -1 && currentValue <= 1) {
+    if (!isNaN(currentValue)) {
       display.innerText = (inverseTrigFunction(currentValue) * 180) / Math.PI;
     } else {
       display.innerText = "Error";
@@ -114,7 +114,7 @@
 
   function applyLogarithm() {
     const currentValue = parseFloat(display.innerText);
-    if (!isNaN(currentValue) && currentValue > 0) {
+    if (!isNaN(currentValue)) {
       display.innerText = Math.log10(currentValue);
     } else {
       display.innerText = "Error";
@@ -123,7 +123,7 @@
 
   function applyNaturalLogarithm() {
     const currentValue = parseFloat(display.innerText);
-    if (!isNaN(currentValue) && currentValue > 0) {
+    if (!isNaN(currentValue) ) {
       display.innerText = Math.log(currentValue);
     } else {
       display.innerText = "Error";
@@ -137,5 +137,5 @@
     } else {
       display.innerText = "Error";
     }
-  });
-
+  }
+});
